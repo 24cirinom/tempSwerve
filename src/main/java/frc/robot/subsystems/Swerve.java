@@ -25,8 +25,10 @@ public class Swerve extends SubsystemBase {
         gyro = new AHRS(Port.kMXP);
         zeroGyro();
         
+        
         swerveOdometry = new SwerveDriveOdometry(Constants.Swerve.swerveKinematics, getYaw());
 
+        // create SweveModule for each swerve drive and putting the in mswervemods array
         mSwerveMods = new SwerveModule[] {
             new SwerveModule(0, Constants.Swerve.Mod0.constants),
             new SwerveModule(1, Constants.Swerve.Mod1.constants),
@@ -97,7 +99,9 @@ public class Swerve extends SubsystemBase {
         for(SwerveModule mod : mSwerveMods){
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoder().getDegrees());
             SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getState().angle.getDegrees());
-            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
+            SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);   
+            System.out.println("Mod " + mod.moduleNumber + " Integrated Angle: " + mod.getState().angle.getDegrees());
         }
+        System.out.println("\n");
     }
 }
